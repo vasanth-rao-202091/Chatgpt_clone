@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="sidebar bg-dark p-2">
+        <div class="sidebar-header mb-3">
+            <a class="btn btn-dark text-white w-75" id="newChatBtn">
+                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                    stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                New chat
+            </a>
+            <a class="btn btn-dark text-white" id="collapseBtnSidebar">
+                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                    stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Sidebar thread names -->
+        <div class="sidebar-thread-names px-2">
+            <!-- Thread names will be added dynamically here -->
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="d-flex justify-content-between user-info-button btn btn-dark w-100" id="userInfoBtn">
+                <div class="user-icon">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                        stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="email px-1 w-75 overflow-hidden">
+                    user@example.com
+                </div>
+                <div class="dots">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                        stroke-linejoin="round" class="h-4 w-4 text-gray-500" height="1em" width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="19" cy="12" r="1"></circle>
+                        <circle cx="5" cy="12" r="1"></circle>
+                    </svg>
+                </div>
+            </button>
+
+            <div class="user-menu" id="userOptions">
+                <nav role="none">
+                    <!-- <a as="button" class="btn btn-dark text-white btn-sm mb-2 user-option" id="settingsBtn">
+                        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
+                            stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        Settings
+                    </a> -->
+                    <div class="my-1.5 h-px bg-white/20" role="none"></div>
+                    <a as="button" class="btn btn-dark text-white btn-sm user-option" id="logoutBtn">
+                        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
+                            stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Log Out
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <nav class="navbar navbar-light bg-white shadow">
+            <div class="container-fluid m-0 justify-content-center">
+                <a class="btn btn-light text-dark d-none" id="collapseBtnMainContent">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                        stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="9" y1="3" x2="9" y2="21"></line>
+                    </svg>
+                </a>
+                ChatGPT
+            </div>
+        </nav>
+
+        <!-- Div for queries -->
+        <div class="thread mx-auto"></div>
+
+        <div class="container text-center px-6 mx-auto">
+            <h2 class="py-5">ChatGPT</h2>
+            <div class="row flex-row justify-content-center gy-3">
+                <div class="exampleDiv px-2">
+                    <div class="flex-column mb-3 fs-5">
+                        <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24"
+                            stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" height="1em" width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <div>Examples</div>
+                    </div>
+                    <div class="examples">
+                        <button type="button" class="btn btn-light text-dark w-100">“Explain quantum computing in
+                            simple terms" →</button>
+                        <button type="button" class="btn btn-light text-dark w-100">“Got any creative ideas for a 10
+                            year old's birthday?" →</button>
+                        <button type="button" class="btn btn-light text-dark w-100">“How do I make an HTTP request
+                            in Javascript?" →</button>
+                    </div>
+                </div>
+
+                <div class="exampleDiv px-2">
+                    <div class="flex-column mb-3 fs-5">
+                        <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24"
+                            stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" height="1em" width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <line x1="3.75" y1="13.5" x2="13.5" y2="2.25" stroke-linecap="round"
+                                stroke-linejoin="round"></line>
+                            <line x1="13.5" y1="2.25" x2="12" y2="10.5" stroke-linecap="round" stroke-linejoin="round">
+                            </line>
+                            <line x1="12" y1="10.5" x2="20.25" y2="10.5" stroke-linecap="round" stroke-linejoin="round">
+                            </line>
+                            <line x1="20.25" y1="10.5" x2="9.75" y2="21.75" stroke-linecap="round"
+                                stroke-linejoin="round"></line>
+                            <line x1="9.75" y1="21.75" x2="12" y2="13.5" stroke-linecap="round" stroke-linejoin="round">
+                            </line>
+                            <line x1="12" y1="13.5" x2="3.75" y2="13.5" stroke-linecap="round" stroke-linejoin="round">
+                            </line>
+                        </svg>
+                        <div>Capabilities</div>
+                    </div>
+                    <div class="examples">
+                        <button type="button" class="btn btn-light text-dark w-100">Remembers what user said
+                            earlier in the conversation
+                        </button>
+                        <button type="button" class="btn btn-light text-dark w-100">Allows user to provide follow-up
+                            corrections</button>
+                        <button type="button" class="btn btn-light text-dark w-100">Trained to decline inappropriate
+                            requests</button>
+                    </div>
+                </div>
+
+                <div class="exampleDiv px-2">
+                    <div class="flex-column mb-3 fs-5">
+                        <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24"
+                            stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" height="1em" width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                            </path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <div>Limitations</div>
+                    </div>
+                    <div class="examples">
+                        <button type="button" class="btn btn-light text-dark w-100">May occasionally generate incorrect
+                            information
+                        </button>
+                        <button type="button" class="btn btn-light text-dark w-100">May occasionally produce harmful
+                            instructions or biased content
+                        </button>
+                        <button type="button" class="btn btn-light text-dark w-100">Limited knowledge of world and
+                            events after 2021
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-content text-center py-2 border-top">
+            <form class="d-flex search-bar justify-content-center">
+                <input class="form-control shadow" type="text" placeholder="Send a message">
+                <button title="search" class="btn btn-light mx-2 border shadow" disabled type="submit"
+                    id="searchButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" class="h-4 w-4 mx-1"
+                        stroke-width="2" height="1em" width="1em">
+                        <path
+                            d="M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.163Z"
+                            fill="currentColor"></path>
+                    </svg>
+                </button>
+            </form>
+            <div class="info my-1">
+                Free Research Preview. ChatGPT may produce inaccurate information about people, places, or facts.
+                ChatGPT August 3 Version
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
